@@ -44,7 +44,9 @@ namespace QCTradeAnalysis
 
         private IEnumerable<QCTradeReturn> GetSelectedReturns()
         {
-            var returnSeries = _trades.ToReturnSeries();
+            var returnSeries = _trades.ToReturnSeries(normalizeReturnsCheck.Checked)
+                .Where(x => x.DateTime >= startDatePicker.Value && x.DateTime <= endDatePicker.Value);
+
             if (symbolChoice.SelectedIndex != 0)
             {
                 var selectedSymbol = (string)symbolChoice.SelectedItem;
@@ -69,6 +71,23 @@ namespace QCTradeAnalysis
             UpdateReturnCharts();
         }
 
+        private void UpdateDatePickers()
+        {
+            if (_trades.Count == 0)
+                return;
+
+            var minDate = _trades.Min(x => x.DateTime);
+            var maxDate = _trades.Max(x => x.DateTime);
+            
+            startDatePicker.MinDate = minDate;
+            startDatePicker.MaxDate = maxDate;
+            startDatePicker.Value = minDate;
+
+            endDatePicker.MinDate = minDate;
+            endDatePicker.MaxDate = maxDate;
+            endDatePicker.Value = maxDate;
+        }
+
         private void UpdateSymbolList()
         {
             _symbols = _trades.Select(x => x.Symbol).Distinct().ToList();
@@ -91,6 +110,9 @@ namespace QCTradeAnalysis
         private void UpdateReturnCharts()
         {
             var returns = GetSelectedReturns().ToArray();
+
+            tradesInRangeLabel.Text = returns.Count() + " trades in range";
+
             var symbols = returns.Select(x => x.Symbol).Distinct();
 
             if (symbolChoice.SelectedIndex == 0)
@@ -120,7 +142,7 @@ namespace QCTradeAnalysis
             {
                 UpdateReturnsDistribution(returns);
                 UpdateQuantityOverTime(returns, false, returnsOverTimeGroup, returnsOverTimeChart,
-                    (x) => x.Return * 100);
+                    (x) => x.Return);
                 UpdateQuantityOverTime(returns, true, tradesOverTimeGroup, tradesOverTimeChart,
                     (x) => 1);
             }
@@ -196,16 +218,22 @@ namespace QCTradeAnalysis
 
         private void UpdateReturnsDistribution(IEnumerable<QCTradeReturn> returns)
         {
+            if (returns.Count() < 2)
+            {
+                returnsDistributionGroup.Visible = false;
+                return;
+            }
+
             var sortedReturns = returns.OrderBy(x => x.Return).ToArray();
-            var min = sortedReturns[0].Return * 100;
-            var max = sortedReturns[sortedReturns.Length - 1].Return * 100;
+            var min = sortedReturns[0].Return;
+            var max = sortedReturns[sortedReturns.Length - 1].Return;
 
             var frequencies = new int[10];
             var sums = new decimal[frequencies.Length];
 
             for (int i = 0; i < sortedReturns.Length; ++i)
             {
-                var r = sortedReturns[i].Return * 100;
+                var r = sortedReturns[i].Return;
                 var u = (r - min) / (max - min);
 
                 int bin = (int)(u * frequencies.Length);
@@ -245,8 +273,8 @@ namespace QCTradeAnalysis
 
         private void UpdateLongShortBalance(IEnumerable<QCTradeReturn> returns)
         {
-            var returnsLong = returns.Where(x => x.IsLong).Sum(y => y.Return) * 100;
-            var returnsShort = returns.Where(x => x.IsShort).Sum(y => y.Return) * 100;
+            var returnsLong = returns.Where(x => x.IsLong).Sum(y => y.Return);
+            var returnsShort = returns.Where(x => x.IsShort).Sum(y => y.Return);
 
             longShortBalanceChart.Series = new SeriesCollection
             {
@@ -276,7 +304,7 @@ namespace QCTradeAnalysis
                     series.Add(new PieSeries
                     {
                         Title = kv.Key,
-                        Values = new ChartValues<decimal> { kv.Value * 100 },
+                        Values = new ChartValues<decimal> { kv.Value },
                         //PushOut = 15,
                         //DataLabels = true
                     });

@@ -87,7 +87,7 @@ namespace QCTradeAnalysis
             public decimal Quantity;
         }
 
-        public static IEnumerable<QCTradeReturn> ToReturnSeries(this IEnumerable<QCTrade> tradeSeries)
+        public static IEnumerable<QCTradeReturn> ToReturnSeries(this IEnumerable<QCTrade> tradeSeries, bool normalize)
         {
             var holdings = new Dictionary<string, Holding>();
 
@@ -103,9 +103,18 @@ namespace QCTradeAnalysis
                 if (holding.Quantity != 0 && Math.Sign(holding.Quantity) != Math.Sign(trade.Quantity))
                 {
                     //generate new return
-                    var tradeReturns = (trade.Price - holding.AveragePrice) / holding.AveragePrice;
+                    decimal tradeReturns = (trade.Price - holding.AveragePrice) / holding.AveragePrice;
                     if (holding.Quantity < 0)
                         tradeReturns = -tradeReturns;
+
+                    if (normalize)
+                    {
+                        tradeReturns *= 100;
+                    }
+                    else
+                    {
+                        tradeReturns *= Math.Sign(trade.Quantity) * trade.Value;
+                    }
 
                     var qcReturn = new QCTradeReturn();
                     qcReturn.DateTime = trade.DateTime;

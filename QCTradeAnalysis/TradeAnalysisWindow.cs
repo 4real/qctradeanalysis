@@ -1,14 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using LiveCharts.WinForms;
-using static QCTradeAnalysis.QCTradeExtensions;
 
 namespace QCTradeAnalysis
 {
@@ -47,6 +41,7 @@ namespace QCTradeAnalysis
             betChoice.Items.Add(new BetItem(true, "Scaled Bets"));
             betChoice.SelectedIndex = Properties.Settings.Default.ScaledBets ? 1 : 0;
 
+            normalizeReturnsCheck.Checked = Properties.Settings.Default.NormalizedReturns;
             startingAccountMask.Text = Properties.Settings.Default.StartingAccount;
 
             LoadCSV(Clipboard.GetText());
@@ -72,6 +67,7 @@ namespace QCTradeAnalysis
 
         private void Exit()
         {
+            Properties.Settings.Default.NormalizedReturns = normalizeReturnsCheck.Checked;
             Properties.Settings.Default.StartingAccount = startingAccountMask.Text;
             Properties.Settings.Default.ScaledBets = AreBetsScaled();
             Properties.Settings.Default.Save();
@@ -88,6 +84,7 @@ namespace QCTradeAnalysis
         {
             _trades = QCTrade.LoadFromCSV(text);
 
+            UpdateDatePickers();
             UpdateSymbolList();
             UpdateReturnCharts();
         }
@@ -122,6 +119,31 @@ namespace QCTradeAnalysis
                 return;
 
             LoadCSV(System.IO.File.ReadAllText(csvOpen.FileName));
+        }
+
+        private void normalizeReturnsCheck_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateReturnCharts();
+        }
+
+        private void startDatePicker_ValueChanged(object sender, EventArgs e)
+        {
+            var minDate = _trades.Min(x => x.DateTime);
+            var maxDate = _trades.Max(x => x.DateTime);
+
+            endDatePicker.MinDate = startDatePicker.Value;
+
+            UpdateReturnCharts();
+        }
+
+        private void endDatePicker_ValueChanged(object sender, EventArgs e)
+        {
+            var minDate = _trades.Min(x => x.DateTime);
+            var maxDate = _trades.Max(x => x.DateTime);
+
+            startDatePicker.MaxDate = endDatePicker.Value;
+
+            UpdateReturnCharts();
         }
     }
 }

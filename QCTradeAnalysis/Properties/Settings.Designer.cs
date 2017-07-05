@@ -46,5 +46,17 @@ namespace QCTradeAnalysis.Properties {
                 this["ScaledBets"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool NormalizedReturns {
+            get {
+                return ((bool)(this["NormalizedReturns"]));
+            }
+            set {
+                this["NormalizedReturns"] = value;
+            }
+        }
     }
 }

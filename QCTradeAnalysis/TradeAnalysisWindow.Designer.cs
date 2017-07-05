@@ -35,6 +35,12 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainTabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tradesInRangeLabel = new System.Windows.Forms.Label();
+            this.normalizeReturnsCheck = new System.Windows.Forms.CheckBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.endDatePicker = new System.Windows.Forms.DateTimePicker();
+            this.label2 = new System.Windows.Forms.Label();
+            this.startDatePicker = new System.Windows.Forms.DateTimePicker();
             this.returnCharts = new System.Windows.Forms.FlowLayoutPanel();
             this.positiveReturnsPerSymbolGroup = new System.Windows.Forms.GroupBox();
             this.positiveReturnsPerSymbol = new LiveCharts.WinForms.PieChart();
@@ -128,6 +134,12 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.tradesInRangeLabel);
+            this.tabPage1.Controls.Add(this.normalizeReturnsCheck);
+            this.tabPage1.Controls.Add(this.label3);
+            this.tabPage1.Controls.Add(this.endDatePicker);
+            this.tabPage1.Controls.Add(this.label2);
+            this.tabPage1.Controls.Add(this.startDatePicker);
             this.tabPage1.Controls.Add(this.returnCharts);
             this.tabPage1.Controls.Add(this.symbolChoice);
             this.tabPage1.Controls.Add(this.longShortChoice);
@@ -138,6 +150,67 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Returns";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tradesInRangeLabel
+            // 
+            this.tradesInRangeLabel.AutoSize = true;
+            this.tradesInRangeLabel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.tradesInRangeLabel.Location = new System.Drawing.Point(784, 9);
+            this.tradesInRangeLabel.Name = "tradesInRangeLabel";
+            this.tradesInRangeLabel.Size = new System.Drawing.Size(118, 19);
+            this.tradesInRangeLabel.TabIndex = 8;
+            this.tradesInRangeLabel.Text = "0 trades in range";
+            // 
+            // normalizeReturnsCheck
+            // 
+            this.normalizeReturnsCheck.AutoSize = true;
+            this.normalizeReturnsCheck.Location = new System.Drawing.Point(977, 8);
+            this.normalizeReturnsCheck.Name = "normalizeReturnsCheck";
+            this.normalizeReturnsCheck.Size = new System.Drawing.Size(150, 21);
+            this.normalizeReturnsCheck.TabIndex = 7;
+            this.normalizeReturnsCheck.Text = "Normalize returns?";
+            this.normalizeReturnsCheck.UseVisualStyleBackColor = true;
+            this.normalizeReturnsCheck.CheckedChanged += new System.EventHandler(this.normalizeReturnsCheck_CheckedChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(570, 7);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(71, 17);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "End Date:";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // endDatePicker
+            // 
+            this.endDatePicker.CustomFormat = "yyyy-MM-dd";
+            this.endDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.endDatePicker.Location = new System.Drawing.Point(647, 7);
+            this.endDatePicker.Name = "endDatePicker";
+            this.endDatePicker.Size = new System.Drawing.Size(112, 22);
+            this.endDatePicker.TabIndex = 5;
+            this.endDatePicker.ValueChanged += new System.EventHandler(this.endDatePicker_ValueChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(359, 7);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(76, 17);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Start Date:";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // startDatePicker
+            // 
+            this.startDatePicker.CustomFormat = "yyyy-MM-dd";
+            this.startDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.startDatePicker.Location = new System.Drawing.Point(441, 7);
+            this.startDatePicker.Name = "startDatePicker";
+            this.startDatePicker.Size = new System.Drawing.Size(112, 22);
+            this.startDatePicker.TabIndex = 3;
+            this.startDatePicker.ValueChanged += new System.EventHandler(this.startDatePicker_ValueChanged);
             // 
             // returnCharts
             // 
@@ -383,6 +456,7 @@
             this.mainMenu.PerformLayout();
             this.mainTabControl.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.returnCharts.ResumeLayout(false);
             this.positiveReturnsPerSymbolGroup.ResumeLayout(false);
             this.negativeReturnsPerSymbolGroup.ResumeLayout(false);
@@ -427,6 +501,12 @@
         private LiveCharts.WinForms.CartesianChart tradesOverTimeChart;
         private ClipboardAssist.ClipboardMonitor clipboardMonitor1;
         private System.Windows.Forms.OpenFileDialog csvOpen;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DateTimePicker startDatePicker;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.DateTimePicker endDatePicker;
+        private System.Windows.Forms.CheckBox normalizeReturnsCheck;
+        private System.Windows.Forms.Label tradesInRangeLabel;
     }
 }
 
