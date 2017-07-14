@@ -131,11 +131,13 @@ namespace QCTradeAnalysis
             
             if (longShortChoice.SelectedIndex == 0 && symbols.Any())
             {
-                UpdateLongShortBalance(returns);
+                UpdateLongShortBalance(returns, longShortReturnsGroup, longShortReturnsChart, x => x.Return);
+                UpdateLongShortBalance(returns, longShortTradesGroup, longShortTradesChart, x => 1);
             }
             else
             {
-                longShortBalanceGroup.Visible = false;
+                longShortReturnsGroup.Visible = false;
+                longShortTradesGroup.Visible = false;
             }
 
             if (symbols.Any())
@@ -271,26 +273,34 @@ namespace QCTradeAnalysis
             returnsDistributionGroup.Visible = true;
         }
 
-        private void UpdateLongShortBalance(IEnumerable<QCTradeReturn> returns)
+        private void UpdateLongShortBalance(IEnumerable<QCTradeReturn> returns, GroupBox group, LiveCharts.WinForms.CartesianChart chart, Func<QCTradeReturn, decimal> quantitySelector)
         {
-            var returnsLong = returns.Where(x => x.IsLong).Sum(y => y.Return);
-            var returnsShort = returns.Where(x => x.IsShort).Sum(y => y.Return);
+            var quantityLong = returns.Where(x => x.IsLong).Sum(y => quantitySelector(y));
+            var quantityShort = returns.Where(x => x.IsShort).Sum(y => quantitySelector(y));
+            var min = Math.Min(quantityLong, quantityShort);
+            var max = Math.Max(quantityLong, quantityShort);
 
-            longShortBalanceChart.Series = new SeriesCollection
+            chart.Series = new SeriesCollection
             {
                 new ColumnSeries
                 {
                     Title = "Long",
-                    Values = new ChartValues<decimal> { returnsLong }
+                    Values = new ChartValues<decimal> { quantityLong }
                 },
                 new ColumnSeries
                 {
                     Title = "Short",
-                    Values = new ChartValues<decimal> { returnsShort }
+                    Values = new ChartValues<decimal> { quantityShort }
                 }
             };
+            chart.AxisY.Clear();
+            chart.AxisY.Add(new Axis()
+            {
+                MinValue = (double)Math.Min(0, min),
+                MaxValue = (double)Math.Max(0, max),
+            });
 
-            longShortBalanceGroup.Visible = true;
+            group.Visible = true;
         }
 
         private void UpdateReturnsPerSymbol(IEnumerable<KeyValuePair<string, decimal>> symbols, GroupBox group, LiveCharts.WinForms.PieChart chart)

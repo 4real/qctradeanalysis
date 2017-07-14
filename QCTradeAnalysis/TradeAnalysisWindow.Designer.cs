@@ -46,8 +46,8 @@
             this.positiveReturnsPerSymbol = new LiveCharts.WinForms.PieChart();
             this.negativeReturnsPerSymbolGroup = new System.Windows.Forms.GroupBox();
             this.negativeReturnsPerSymbol = new LiveCharts.WinForms.PieChart();
-            this.longShortBalanceGroup = new System.Windows.Forms.GroupBox();
-            this.longShortBalanceChart = new LiveCharts.WinForms.CartesianChart();
+            this.longShortReturnsGroup = new System.Windows.Forms.GroupBox();
+            this.longShortReturnsChart = new LiveCharts.WinForms.CartesianChart();
             this.returnsDistributionGroup = new System.Windows.Forms.GroupBox();
             this.returnsDistributionChart = new LiveCharts.WinForms.CartesianChart();
             this.returnsOverTimeGroup = new System.Windows.Forms.GroupBox();
@@ -62,17 +62,20 @@
             this.betChoice = new System.Windows.Forms.ComboBox();
             this.csvOpen = new System.Windows.Forms.OpenFileDialog();
             this.clipboardMonitor1 = new ClipboardAssist.ClipboardMonitor();
+            this.longShortTradesGroup = new System.Windows.Forms.GroupBox();
+            this.longShortTradesChart = new LiveCharts.WinForms.CartesianChart();
             this.mainMenu.SuspendLayout();
             this.mainTabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.returnCharts.SuspendLayout();
             this.positiveReturnsPerSymbolGroup.SuspendLayout();
             this.negativeReturnsPerSymbolGroup.SuspendLayout();
-            this.longShortBalanceGroup.SuspendLayout();
+            this.longShortReturnsGroup.SuspendLayout();
             this.returnsDistributionGroup.SuspendLayout();
             this.returnsOverTimeGroup.SuspendLayout();
             this.tradesOverTimeGroup.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.longShortTradesGroup.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainMenu
@@ -82,7 +85,7 @@
             this.fileToolStripMenuItem});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
-            this.mainMenu.Size = new System.Drawing.Size(1330, 28);
+            this.mainMenu.Size = new System.Drawing.Size(1882, 28);
             this.mainMenu.TabIndex = 0;
             this.mainMenu.Text = "menuStrip1";
             this.mainMenu.KeyDown += new System.Windows.Forms.KeyEventHandler(this.mainMenu_KeyDown);
@@ -129,7 +132,7 @@
             this.mainTabControl.Location = new System.Drawing.Point(0, 31);
             this.mainTabControl.Name = "mainTabControl";
             this.mainTabControl.SelectedIndex = 0;
-            this.mainTabControl.Size = new System.Drawing.Size(1330, 963);
+            this.mainTabControl.Size = new System.Drawing.Size(1882, 963);
             this.mainTabControl.TabIndex = 1;
             // 
             // tabPage1
@@ -146,7 +149,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1322, 934);
+            this.tabPage1.Size = new System.Drawing.Size(1874, 934);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Returns";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -219,13 +222,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.returnCharts.Controls.Add(this.positiveReturnsPerSymbolGroup);
             this.returnCharts.Controls.Add(this.negativeReturnsPerSymbolGroup);
-            this.returnCharts.Controls.Add(this.longShortBalanceGroup);
+            this.returnCharts.Controls.Add(this.longShortReturnsGroup);
+            this.returnCharts.Controls.Add(this.longShortTradesGroup);
             this.returnCharts.Controls.Add(this.returnsDistributionGroup);
             this.returnCharts.Controls.Add(this.returnsOverTimeGroup);
             this.returnCharts.Controls.Add(this.tradesOverTimeGroup);
             this.returnCharts.Location = new System.Drawing.Point(9, 38);
             this.returnCharts.Name = "returnCharts";
-            this.returnCharts.Size = new System.Drawing.Size(1305, 890);
+            this.returnCharts.Size = new System.Drawing.Size(1857, 890);
             this.returnCharts.TabIndex = 2;
             // 
             // positiveReturnsPerSymbolGroup
@@ -272,34 +276,33 @@
             this.negativeReturnsPerSymbol.TabIndex = 0;
             this.negativeReturnsPerSymbol.Text = "Negative Returns";
             // 
-            // longShortBalanceGroup
+            // longShortReturnsGroup
             // 
-            this.longShortBalanceGroup.Controls.Add(this.longShortBalanceChart);
-            this.longShortBalanceGroup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.longShortBalanceGroup.Location = new System.Drawing.Point(661, 3);
-            this.longShortBalanceGroup.Name = "longShortBalanceGroup";
-            this.longShortBalanceGroup.Size = new System.Drawing.Size(199, 287);
-            this.longShortBalanceGroup.TabIndex = 3;
-            this.longShortBalanceGroup.TabStop = false;
-            this.longShortBalanceGroup.Text = "Long Short Balance";
+            this.longShortReturnsGroup.Controls.Add(this.longShortReturnsChart);
+            this.longShortReturnsGroup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.longShortReturnsGroup.Location = new System.Drawing.Point(661, 3);
+            this.longShortReturnsGroup.Name = "longShortReturnsGroup";
+            this.longShortReturnsGroup.Size = new System.Drawing.Size(199, 287);
+            this.longShortReturnsGroup.TabIndex = 3;
+            this.longShortReturnsGroup.TabStop = false;
+            this.longShortReturnsGroup.Text = "Long Short Returns";
             // 
-            // longShortBalanceChart
+            // longShortReturnsChart
             // 
-            this.longShortBalanceChart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.longShortReturnsChart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.longShortBalanceChart.Location = new System.Drawing.Point(6, 21);
-            this.longShortBalanceChart.Name = "longShortBalanceChart";
-            this.longShortBalanceChart.Size = new System.Drawing.Size(193, 266);
-            this.longShortBalanceChart.TabIndex = 0;
-            this.longShortBalanceChart.Text = "cartesianChart1";
+            this.longShortReturnsChart.Location = new System.Drawing.Point(6, 21);
+            this.longShortReturnsChart.Name = "longShortReturnsChart";
+            this.longShortReturnsChart.Size = new System.Drawing.Size(193, 266);
+            this.longShortReturnsChart.TabIndex = 0;
+            this.longShortReturnsChart.Text = "Long Short Returns";
             // 
             // returnsDistributionGroup
             // 
             this.returnsDistributionGroup.Controls.Add(this.returnsDistributionChart);
             this.returnsDistributionGroup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.returnCharts.SetFlowBreak(this.returnsDistributionGroup, true);
-            this.returnsDistributionGroup.Location = new System.Drawing.Point(866, 3);
+            this.returnsDistributionGroup.Location = new System.Drawing.Point(1071, 3);
             this.returnsDistributionGroup.Name = "returnsDistributionGroup";
             this.returnsDistributionGroup.Size = new System.Drawing.Size(434, 287);
             this.returnsDistributionGroup.TabIndex = 4;
@@ -315,7 +318,7 @@
             this.returnsDistributionChart.Name = "returnsDistributionChart";
             this.returnsDistributionChart.Size = new System.Drawing.Size(428, 266);
             this.returnsDistributionChart.TabIndex = 0;
-            this.returnsDistributionChart.Text = "cartesianChart1";
+            this.returnsDistributionChart.Text = "Returns Distribution";
             // 
             // returnsOverTimeGroup
             // 
@@ -323,7 +326,7 @@
             this.returnsOverTimeGroup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.returnsOverTimeGroup.Location = new System.Drawing.Point(3, 296);
             this.returnsOverTimeGroup.Name = "returnsOverTimeGroup";
-            this.returnsOverTimeGroup.Size = new System.Drawing.Size(1297, 287);
+            this.returnsOverTimeGroup.Size = new System.Drawing.Size(857, 287);
             this.returnsOverTimeGroup.TabIndex = 5;
             this.returnsOverTimeGroup.TabStop = false;
             this.returnsOverTimeGroup.Text = "Returns Over Time";
@@ -335,7 +338,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.returnsOverTimeChart.Location = new System.Drawing.Point(6, 21);
             this.returnsOverTimeChart.Name = "returnsOverTimeChart";
-            this.returnsOverTimeChart.Size = new System.Drawing.Size(1291, 266);
+            this.returnsOverTimeChart.Size = new System.Drawing.Size(851, 266);
             this.returnsOverTimeChart.TabIndex = 0;
             this.returnsOverTimeChart.Text = "Returns Over Time";
             // 
@@ -343,9 +346,9 @@
             // 
             this.tradesOverTimeGroup.Controls.Add(this.tradesOverTimeChart);
             this.tradesOverTimeGroup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.tradesOverTimeGroup.Location = new System.Drawing.Point(3, 589);
+            this.tradesOverTimeGroup.Location = new System.Drawing.Point(866, 296);
             this.tradesOverTimeGroup.Name = "tradesOverTimeGroup";
-            this.tradesOverTimeGroup.Size = new System.Drawing.Size(1297, 287);
+            this.tradesOverTimeGroup.Size = new System.Drawing.Size(857, 287);
             this.tradesOverTimeGroup.TabIndex = 6;
             this.tradesOverTimeGroup.TabStop = false;
             this.tradesOverTimeGroup.Text = "Trades Over Time";
@@ -357,7 +360,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tradesOverTimeChart.Location = new System.Drawing.Point(6, 21);
             this.tradesOverTimeChart.Name = "tradesOverTimeChart";
-            this.tradesOverTimeChart.Size = new System.Drawing.Size(1291, 266);
+            this.tradesOverTimeChart.Size = new System.Drawing.Size(851, 266);
             this.tradesOverTimeChart.TabIndex = 0;
             this.tradesOverTimeChart.Text = "Trades Over Time";
             // 
@@ -389,7 +392,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1322, 934);
+            this.tabPage2.Size = new System.Drawing.Size(1874, 934);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Monte Carlo";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -439,11 +442,33 @@
             this.clipboardMonitor1.Visible = false;
             this.clipboardMonitor1.ClipboardChanged += new System.EventHandler<ClipboardAssist.ClipboardChangedEventArgs>(this.clipboardMonitor1_ClipboardChanged);
             // 
+            // longShortTradesGroup
+            // 
+            this.longShortTradesGroup.Controls.Add(this.longShortTradesChart);
+            this.longShortTradesGroup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.longShortTradesGroup.Location = new System.Drawing.Point(866, 3);
+            this.longShortTradesGroup.Name = "longShortTradesGroup";
+            this.longShortTradesGroup.Size = new System.Drawing.Size(199, 287);
+            this.longShortTradesGroup.TabIndex = 7;
+            this.longShortTradesGroup.TabStop = false;
+            this.longShortTradesGroup.Text = "Long Short Trades";
+            // 
+            // longShortTradesChart
+            // 
+            this.longShortTradesChart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.longShortTradesChart.Location = new System.Drawing.Point(6, 21);
+            this.longShortTradesChart.Name = "longShortTradesChart";
+            this.longShortTradesChart.Size = new System.Drawing.Size(193, 266);
+            this.longShortTradesChart.TabIndex = 0;
+            this.longShortTradesChart.Text = "Long Short Trades";
+            // 
             // TradeAnalysisWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1330, 990);
+            this.ClientSize = new System.Drawing.Size(1882, 990);
             this.Controls.Add(this.clipboardMonitor1);
             this.Controls.Add(this.mainTabControl);
             this.Controls.Add(this.mainMenu);
@@ -460,12 +485,13 @@
             this.returnCharts.ResumeLayout(false);
             this.positiveReturnsPerSymbolGroup.ResumeLayout(false);
             this.negativeReturnsPerSymbolGroup.ResumeLayout(false);
-            this.longShortBalanceGroup.ResumeLayout(false);
+            this.longShortReturnsGroup.ResumeLayout(false);
             this.returnsDistributionGroup.ResumeLayout(false);
             this.returnsOverTimeGroup.ResumeLayout(false);
             this.tradesOverTimeGroup.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.longShortTradesGroup.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -491,8 +517,8 @@
         private System.Windows.Forms.GroupBox positiveReturnsPerSymbolGroup;
         private System.Windows.Forms.GroupBox negativeReturnsPerSymbolGroup;
         private LiveCharts.WinForms.PieChart negativeReturnsPerSymbol;
-        private System.Windows.Forms.GroupBox longShortBalanceGroup;
-        private LiveCharts.WinForms.CartesianChart longShortBalanceChart;
+        private System.Windows.Forms.GroupBox longShortReturnsGroup;
+        private LiveCharts.WinForms.CartesianChart longShortReturnsChart;
         private System.Windows.Forms.GroupBox returnsDistributionGroup;
         private LiveCharts.WinForms.CartesianChart returnsDistributionChart;
         private System.Windows.Forms.GroupBox returnsOverTimeGroup;
@@ -507,6 +533,8 @@
         private System.Windows.Forms.DateTimePicker endDatePicker;
         private System.Windows.Forms.CheckBox normalizeReturnsCheck;
         private System.Windows.Forms.Label tradesInRangeLabel;
+        private System.Windows.Forms.GroupBox longShortTradesGroup;
+        private LiveCharts.WinForms.CartesianChart longShortTradesChart;
     }
 }
 
