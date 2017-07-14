@@ -48,6 +48,8 @@
             this.negativeReturnsPerSymbol = new LiveCharts.WinForms.PieChart();
             this.longShortReturnsGroup = new System.Windows.Forms.GroupBox();
             this.longShortReturnsChart = new LiveCharts.WinForms.CartesianChart();
+            this.longShortTradesGroup = new System.Windows.Forms.GroupBox();
+            this.longShortTradesChart = new LiveCharts.WinForms.CartesianChart();
             this.returnsDistributionGroup = new System.Windows.Forms.GroupBox();
             this.returnsDistributionChart = new LiveCharts.WinForms.CartesianChart();
             this.returnsOverTimeGroup = new System.Windows.Forms.GroupBox();
@@ -62,8 +64,7 @@
             this.betChoice = new System.Windows.Forms.ComboBox();
             this.csvOpen = new System.Windows.Forms.OpenFileDialog();
             this.clipboardMonitor1 = new ClipboardAssist.ClipboardMonitor();
-            this.longShortTradesGroup = new System.Windows.Forms.GroupBox();
-            this.longShortTradesChart = new LiveCharts.WinForms.CartesianChart();
+            this.dailySeriesCheck = new System.Windows.Forms.CheckBox();
             this.mainMenu.SuspendLayout();
             this.mainTabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -71,11 +72,11 @@
             this.positiveReturnsPerSymbolGroup.SuspendLayout();
             this.negativeReturnsPerSymbolGroup.SuspendLayout();
             this.longShortReturnsGroup.SuspendLayout();
+            this.longShortTradesGroup.SuspendLayout();
             this.returnsDistributionGroup.SuspendLayout();
             this.returnsOverTimeGroup.SuspendLayout();
             this.tradesOverTimeGroup.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.longShortTradesGroup.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainMenu
@@ -137,6 +138,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.dailySeriesCheck);
             this.tabPage1.Controls.Add(this.tradesInRangeLabel);
             this.tabPage1.Controls.Add(this.normalizeReturnsCheck);
             this.tabPage1.Controls.Add(this.label3);
@@ -298,6 +300,28 @@
             this.longShortReturnsChart.TabIndex = 0;
             this.longShortReturnsChart.Text = "Long Short Returns";
             // 
+            // longShortTradesGroup
+            // 
+            this.longShortTradesGroup.Controls.Add(this.longShortTradesChart);
+            this.longShortTradesGroup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.longShortTradesGroup.Location = new System.Drawing.Point(866, 3);
+            this.longShortTradesGroup.Name = "longShortTradesGroup";
+            this.longShortTradesGroup.Size = new System.Drawing.Size(199, 287);
+            this.longShortTradesGroup.TabIndex = 7;
+            this.longShortTradesGroup.TabStop = false;
+            this.longShortTradesGroup.Text = "Long Short Trades";
+            // 
+            // longShortTradesChart
+            // 
+            this.longShortTradesChart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.longShortTradesChart.Location = new System.Drawing.Point(6, 21);
+            this.longShortTradesChart.Name = "longShortTradesChart";
+            this.longShortTradesChart.Size = new System.Drawing.Size(193, 266);
+            this.longShortTradesChart.TabIndex = 0;
+            this.longShortTradesChart.Text = "Long Short Trades";
+            // 
             // returnsDistributionGroup
             // 
             this.returnsDistributionGroup.Controls.Add(this.returnsDistributionChart);
@@ -442,27 +466,16 @@
             this.clipboardMonitor1.Visible = false;
             this.clipboardMonitor1.ClipboardChanged += new System.EventHandler<ClipboardAssist.ClipboardChangedEventArgs>(this.clipboardMonitor1_ClipboardChanged);
             // 
-            // longShortTradesGroup
+            // dailySeries
             // 
-            this.longShortTradesGroup.Controls.Add(this.longShortTradesChart);
-            this.longShortTradesGroup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.longShortTradesGroup.Location = new System.Drawing.Point(866, 3);
-            this.longShortTradesGroup.Name = "longShortTradesGroup";
-            this.longShortTradesGroup.Size = new System.Drawing.Size(199, 287);
-            this.longShortTradesGroup.TabIndex = 7;
-            this.longShortTradesGroup.TabStop = false;
-            this.longShortTradesGroup.Text = "Long Short Trades";
-            // 
-            // longShortTradesChart
-            // 
-            this.longShortTradesChart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.longShortTradesChart.Location = new System.Drawing.Point(6, 21);
-            this.longShortTradesChart.Name = "longShortTradesChart";
-            this.longShortTradesChart.Size = new System.Drawing.Size(193, 266);
-            this.longShortTradesChart.TabIndex = 0;
-            this.longShortTradesChart.Text = "Long Short Trades";
+            this.dailySeriesCheck.AutoSize = true;
+            this.dailySeriesCheck.Location = new System.Drawing.Point(1133, 7);
+            this.dailySeriesCheck.Name = "dailySeries";
+            this.dailySeriesCheck.Size = new System.Drawing.Size(130, 21);
+            this.dailySeriesCheck.TabIndex = 9;
+            this.dailySeriesCheck.Text = "To daily series?";
+            this.dailySeriesCheck.UseVisualStyleBackColor = true;
+            this.dailySeriesCheck.CheckedChanged += new System.EventHandler(this.dailySeries_CheckedChanged);
             // 
             // TradeAnalysisWindow
             // 
@@ -486,12 +499,12 @@
             this.positiveReturnsPerSymbolGroup.ResumeLayout(false);
             this.negativeReturnsPerSymbolGroup.ResumeLayout(false);
             this.longShortReturnsGroup.ResumeLayout(false);
+            this.longShortTradesGroup.ResumeLayout(false);
             this.returnsDistributionGroup.ResumeLayout(false);
             this.returnsOverTimeGroup.ResumeLayout(false);
             this.tradesOverTimeGroup.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            this.longShortTradesGroup.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -535,6 +548,7 @@
         private System.Windows.Forms.Label tradesInRangeLabel;
         private System.Windows.Forms.GroupBox longShortTradesGroup;
         private LiveCharts.WinForms.CartesianChart longShortTradesChart;
+        private System.Windows.Forms.CheckBox dailySeriesCheck;
     }
 }
 

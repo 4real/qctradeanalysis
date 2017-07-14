@@ -47,6 +47,10 @@ namespace QCTradeAnalysis
             var returnSeries = _trades.ToReturnSeries(normalizeReturnsCheck.Checked)
                 .Where(x => x.DateTime >= startDatePicker.Value && x.DateTime <= endDatePicker.Value);
 
+            if (dailySeriesCheck.Checked)
+            {
+                returnSeries = returnSeries.ToDailySeries();
+            }
             if (symbolChoice.SelectedIndex != 0)
             {
                 var selectedSymbol = (string)symbolChoice.SelectedItem;

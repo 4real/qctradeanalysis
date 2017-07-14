@@ -42,6 +42,7 @@ namespace QCTradeAnalysis
             betChoice.SelectedIndex = Properties.Settings.Default.ScaledBets ? 1 : 0;
 
             normalizeReturnsCheck.Checked = Properties.Settings.Default.NormalizedReturns;
+            dailySeriesCheck.Checked = Properties.Settings.Default.DailySeries;
             startingAccountMask.Text = Properties.Settings.Default.StartingAccount;
 
             LoadCSV(Clipboard.GetText());
@@ -68,6 +69,7 @@ namespace QCTradeAnalysis
         private void Exit()
         {
             Properties.Settings.Default.NormalizedReturns = normalizeReturnsCheck.Checked;
+            Properties.Settings.Default.DailySeries = dailySeriesCheck.Checked;
             Properties.Settings.Default.StartingAccount = startingAccountMask.Text;
             Properties.Settings.Default.ScaledBets = AreBetsScaled();
             Properties.Settings.Default.Save();
@@ -143,6 +145,11 @@ namespace QCTradeAnalysis
 
             startDatePicker.MaxDate = endDatePicker.Value;
 
+            UpdateReturnCharts();
+        }
+
+        private void dailySeries_CheckedChanged(object sender, EventArgs e)
+        {
             UpdateReturnCharts();
         }
     }

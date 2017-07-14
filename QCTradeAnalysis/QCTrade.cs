@@ -77,6 +77,11 @@ namespace QCTradeAnalysis
         {
             get { return Quantity > 0; } //buying back
         }
+
+        public QCTradeReturn Clone()
+        {
+            return (QCTradeReturn)MemberwiseClone();
+        }
     }
 
     public static class QCTradeExtensions
@@ -133,6 +138,42 @@ namespace QCTradeAnalysis
 
                 holding.Quantity += trade.Quantity;
             }
+        }
+
+        public static IEnumerable<QCTradeReturn> ToDailySeries(this IEnumerable<QCTradeReturn> returnSeries)
+        {
+            var newSeries = new List<QCTradeReturn>();
+
+            foreach (var symbolSeries in returnSeries.GroupBy(x => x.Symbol))
+            {
+                QCTradeReturn currentDay = null;
+                foreach (var r in symbolSeries)
+                {
+                    if (currentDay == null)
+                        currentDay = r.Clone();
+                    else
+                    {
+                        if (currentDay.DateTime.DayOfYear == r.DateTime.DayOfYear) //TODO: technically this is not safe
+                        {
+                            //merge r into current day
+                            currentDay.Quantity += r.Quantity;
+                            currentDay.Return += r.Return; //TODO: multiplicative in case of percentage returns
+                        }
+                        else
+                        {
+                            newSeries.Add(currentDay);
+                            currentDay = r.Clone();
+                        }
+                    }
+                }
+
+                if (currentDay != null)
+                    newSeries.Add(currentDay);
+            }
+
+            newSeries.Sort((x, y) => x.DateTime.CompareTo(y.DateTime));
+
+            return newSeries;
         }
     }
 }

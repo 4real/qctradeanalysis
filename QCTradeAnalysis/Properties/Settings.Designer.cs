@@ -58,5 +58,17 @@ namespace QCTradeAnalysis.Properties {
                 this["NormalizedReturns"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DailySeries {
+            get {
+                return ((bool)(this["DailySeries"]));
+            }
+            set {
+                this["DailySeries"] = value;
+            }
+        }
     }
 }
