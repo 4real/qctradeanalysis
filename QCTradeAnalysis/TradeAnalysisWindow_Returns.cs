@@ -146,6 +146,7 @@ namespace QCTradeAnalysis
 
             if (symbols.Any())
             {
+                UpdateIntradayReturnsDistribution(returns);
                 UpdateReturnsDistribution(returns);
                 UpdateQuantityOverTime(returns, false, returnsOverTimeGroup, returnsOverTimeChart,
                     (x) => x.Return);
@@ -154,6 +155,7 @@ namespace QCTradeAnalysis
             }
             else
             {
+                intradayReturnsDistributionGroup.Visible = false;
                 returnsDistributionGroup.Visible = false;
                 returnsOverTimeGroup.Visible = false;
                 tradesOverTimeGroup.Visible = false;
@@ -220,6 +222,60 @@ namespace QCTradeAnalysis
             });
 
             group.Visible = true;
+        }
+
+        private void UpdateIntradayReturnsDistribution(IEnumerable<QCTradeReturn> returns)
+        {
+            if (returns.Count() < 1 || dailySeriesCheck.Checked)
+            {
+                intradayReturnsDistributionGroup.Visible = false;
+                return;
+            }
+
+            var sortedReturns = returns.OrderBy(x => x.Return).ToArray();
+
+            int minHour = returns.Min(x => x.DateTime.Hour);
+            int maxHour = returns.Max(x => x.DateTime.Hour);
+
+            var frequencies = new int[maxHour - minHour + 1];
+            var sums = new decimal[frequencies.Length];
+
+            for (int i = 0; i < sortedReturns.Length; ++i)
+            {
+                var r = sortedReturns[i];
+                int bin = r.DateTime.Hour - minHour;
+
+                frequencies[bin] += 1;
+                sums[bin] += r.Return;
+            }
+
+            var hours = new int[frequencies.Length];
+            for (int i = 0; i < frequencies.Length; ++i)
+            {
+                hours[i] = i + minHour;
+            }
+
+            intradayReturnsDistributionChart.Series = new SeriesCollection
+            {
+                new ColumnSeries
+                {
+                    Title = symbolChoice.SelectedText,
+                    Values = new ChartValues<decimal>(sums)
+                },
+            };
+            intradayReturnsDistributionChart.AxisX.Clear();
+            intradayReturnsDistributionChart.AxisX.Add(new Axis
+            {
+                Labels = hours.Select(x => x.ToString()).ToArray(),
+                Separator = new Separator
+                {
+                    Step = 1,
+                    IsEnabled = false
+                }
+            });
+
+
+            intradayReturnsDistributionGroup.Visible = true;
         }
 
         private void UpdateReturnsDistribution(IEnumerable<QCTradeReturn> returns)

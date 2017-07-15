@@ -35,6 +35,7 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainTabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.dailySeriesCheck = new System.Windows.Forms.CheckBox();
             this.tradesInRangeLabel = new System.Windows.Forms.Label();
             this.normalizeReturnsCheck = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -63,8 +64,9 @@
             this.startingAccountMask = new System.Windows.Forms.MaskedTextBox();
             this.betChoice = new System.Windows.Forms.ComboBox();
             this.csvOpen = new System.Windows.Forms.OpenFileDialog();
+            this.intradayReturnsDistributionGroup = new System.Windows.Forms.GroupBox();
+            this.intradayReturnsDistributionChart = new LiveCharts.WinForms.CartesianChart();
             this.clipboardMonitor1 = new ClipboardAssist.ClipboardMonitor();
-            this.dailySeriesCheck = new System.Windows.Forms.CheckBox();
             this.mainMenu.SuspendLayout();
             this.mainTabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -77,6 +79,7 @@
             this.returnsOverTimeGroup.SuspendLayout();
             this.tradesOverTimeGroup.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.intradayReturnsDistributionGroup.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainMenu
@@ -86,7 +89,7 @@
             this.fileToolStripMenuItem});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
-            this.mainMenu.Size = new System.Drawing.Size(1882, 28);
+            this.mainMenu.Size = new System.Drawing.Size(1756, 28);
             this.mainMenu.TabIndex = 0;
             this.mainMenu.Text = "menuStrip1";
             this.mainMenu.KeyDown += new System.Windows.Forms.KeyEventHandler(this.mainMenu_KeyDown);
@@ -133,7 +136,7 @@
             this.mainTabControl.Location = new System.Drawing.Point(0, 31);
             this.mainTabControl.Name = "mainTabControl";
             this.mainTabControl.SelectedIndex = 0;
-            this.mainTabControl.Size = new System.Drawing.Size(1882, 963);
+            this.mainTabControl.Size = new System.Drawing.Size(1756, 963);
             this.mainTabControl.TabIndex = 1;
             // 
             // tabPage1
@@ -151,10 +154,21 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1874, 934);
+            this.tabPage1.Size = new System.Drawing.Size(1748, 934);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Returns";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // dailySeriesCheck
+            // 
+            this.dailySeriesCheck.AutoSize = true;
+            this.dailySeriesCheck.Location = new System.Drawing.Point(1133, 7);
+            this.dailySeriesCheck.Name = "dailySeriesCheck";
+            this.dailySeriesCheck.Size = new System.Drawing.Size(130, 21);
+            this.dailySeriesCheck.TabIndex = 9;
+            this.dailySeriesCheck.Text = "To daily series?";
+            this.dailySeriesCheck.UseVisualStyleBackColor = true;
+            this.dailySeriesCheck.CheckedChanged += new System.EventHandler(this.dailySeries_CheckedChanged);
             // 
             // tradesInRangeLabel
             // 
@@ -222,16 +236,18 @@
             this.returnCharts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.returnCharts.AutoScroll = true;
             this.returnCharts.Controls.Add(this.positiveReturnsPerSymbolGroup);
             this.returnCharts.Controls.Add(this.negativeReturnsPerSymbolGroup);
             this.returnCharts.Controls.Add(this.longShortReturnsGroup);
             this.returnCharts.Controls.Add(this.longShortTradesGroup);
             this.returnCharts.Controls.Add(this.returnsDistributionGroup);
+            this.returnCharts.Controls.Add(this.intradayReturnsDistributionGroup);
             this.returnCharts.Controls.Add(this.returnsOverTimeGroup);
             this.returnCharts.Controls.Add(this.tradesOverTimeGroup);
             this.returnCharts.Location = new System.Drawing.Point(9, 38);
             this.returnCharts.Name = "returnCharts";
-            this.returnCharts.Size = new System.Drawing.Size(1857, 890);
+            this.returnCharts.Size = new System.Drawing.Size(1731, 890);
             this.returnCharts.TabIndex = 2;
             // 
             // positiveReturnsPerSymbolGroup
@@ -328,7 +344,7 @@
             this.returnsDistributionGroup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.returnsDistributionGroup.Location = new System.Drawing.Point(1071, 3);
             this.returnsDistributionGroup.Name = "returnsDistributionGroup";
-            this.returnsDistributionGroup.Size = new System.Drawing.Size(434, 287);
+            this.returnsDistributionGroup.Size = new System.Drawing.Size(465, 287);
             this.returnsDistributionGroup.TabIndex = 4;
             this.returnsDistributionGroup.TabStop = false;
             this.returnsDistributionGroup.Text = "Returns Distribution";
@@ -340,7 +356,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.returnsDistributionChart.Location = new System.Drawing.Point(6, 21);
             this.returnsDistributionChart.Name = "returnsDistributionChart";
-            this.returnsDistributionChart.Size = new System.Drawing.Size(428, 266);
+            this.returnsDistributionChart.Size = new System.Drawing.Size(459, 266);
             this.returnsDistributionChart.TabIndex = 0;
             this.returnsDistributionChart.Text = "Returns Distribution";
             // 
@@ -348,7 +364,7 @@
             // 
             this.returnsOverTimeGroup.Controls.Add(this.returnsOverTimeChart);
             this.returnsOverTimeGroup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.returnsOverTimeGroup.Location = new System.Drawing.Point(3, 296);
+            this.returnsOverTimeGroup.Location = new System.Drawing.Point(474, 296);
             this.returnsOverTimeGroup.Name = "returnsOverTimeGroup";
             this.returnsOverTimeGroup.Size = new System.Drawing.Size(857, 287);
             this.returnsOverTimeGroup.TabIndex = 5;
@@ -370,7 +386,7 @@
             // 
             this.tradesOverTimeGroup.Controls.Add(this.tradesOverTimeChart);
             this.tradesOverTimeGroup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.tradesOverTimeGroup.Location = new System.Drawing.Point(866, 296);
+            this.tradesOverTimeGroup.Location = new System.Drawing.Point(3, 589);
             this.tradesOverTimeGroup.Name = "tradesOverTimeGroup";
             this.tradesOverTimeGroup.Size = new System.Drawing.Size(857, 287);
             this.tradesOverTimeGroup.TabIndex = 6;
@@ -416,7 +432,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1874, 934);
+            this.tabPage2.Size = new System.Drawing.Size(1748, 934);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Monte Carlo";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -455,6 +471,28 @@
             this.csvOpen.Filter = "CSV Files|*.csv";
             this.csvOpen.RestoreDirectory = true;
             // 
+            // intradayReturnsDistributionGroup
+            // 
+            this.intradayReturnsDistributionGroup.Controls.Add(this.intradayReturnsDistributionChart);
+            this.intradayReturnsDistributionGroup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.intradayReturnsDistributionGroup.Location = new System.Drawing.Point(3, 296);
+            this.intradayReturnsDistributionGroup.Name = "intradayReturnsDistributionGroup";
+            this.intradayReturnsDistributionGroup.Size = new System.Drawing.Size(465, 287);
+            this.intradayReturnsDistributionGroup.TabIndex = 10;
+            this.intradayReturnsDistributionGroup.TabStop = false;
+            this.intradayReturnsDistributionGroup.Text = "Intraday Returns Distribution";
+            // 
+            // intradayReturnsDistributionChart
+            // 
+            this.intradayReturnsDistributionChart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.intradayReturnsDistributionChart.Location = new System.Drawing.Point(6, 21);
+            this.intradayReturnsDistributionChart.Name = "intradayReturnsDistributionChart";
+            this.intradayReturnsDistributionChart.Size = new System.Drawing.Size(459, 266);
+            this.intradayReturnsDistributionChart.TabIndex = 0;
+            this.intradayReturnsDistributionChart.Text = "Intraday Returns Distribution";
+            // 
             // clipboardMonitor1
             // 
             this.clipboardMonitor1.BackColor = System.Drawing.Color.Red;
@@ -466,22 +504,11 @@
             this.clipboardMonitor1.Visible = false;
             this.clipboardMonitor1.ClipboardChanged += new System.EventHandler<ClipboardAssist.ClipboardChangedEventArgs>(this.clipboardMonitor1_ClipboardChanged);
             // 
-            // dailySeries
-            // 
-            this.dailySeriesCheck.AutoSize = true;
-            this.dailySeriesCheck.Location = new System.Drawing.Point(1133, 7);
-            this.dailySeriesCheck.Name = "dailySeries";
-            this.dailySeriesCheck.Size = new System.Drawing.Size(130, 21);
-            this.dailySeriesCheck.TabIndex = 9;
-            this.dailySeriesCheck.Text = "To daily series?";
-            this.dailySeriesCheck.UseVisualStyleBackColor = true;
-            this.dailySeriesCheck.CheckedChanged += new System.EventHandler(this.dailySeries_CheckedChanged);
-            // 
             // TradeAnalysisWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1882, 990);
+            this.ClientSize = new System.Drawing.Size(1756, 990);
             this.Controls.Add(this.clipboardMonitor1);
             this.Controls.Add(this.mainTabControl);
             this.Controls.Add(this.mainMenu);
@@ -505,6 +532,7 @@
             this.tradesOverTimeGroup.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.intradayReturnsDistributionGroup.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -549,6 +577,8 @@
         private System.Windows.Forms.GroupBox longShortTradesGroup;
         private LiveCharts.WinForms.CartesianChart longShortTradesChart;
         private System.Windows.Forms.CheckBox dailySeriesCheck;
+        private System.Windows.Forms.GroupBox intradayReturnsDistributionGroup;
+        private LiveCharts.WinForms.CartesianChart intradayReturnsDistributionChart;
     }
 }
 
